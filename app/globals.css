@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --payth-purple: #7c3aed;
+  --payth-blue: #2563eb;
+  --payth-indigo: #4f46e5;
+  --payth-navy: #071235;
+  --payth-muted: #64748b;
+  --payth-bg: #f8faff;
+  --payth-border: #e5e7f5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--payth-bg);
+  color: var(--payth-navy);
+}
