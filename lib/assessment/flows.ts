@@ -5,11 +5,11 @@ export const step1Question: AssessmentQuestion = {
   title: "What kind of business do you run?",
   multiSelect: false,
   options: [
-    { id: "restaurant", label: "Restaurant", emoji: "🍽" },
-    { id: "ecommerce", label: "Ecommerce", emoji: "🛒" },
-    { id: "saas", label: "SaaS", emoji: "💻" },
-    { id: "retail", label: "Retail", emoji: "🏬" },
-    { id: "other", label: "Other", emoji: "🔧" },
+    { id: "restaurant", label: "Restaurant", iconKey: "restaurant" },
+    { id: "ecommerce", label: "Ecommerce", iconKey: "ecommerce" },
+    { id: "saas", label: "SaaS", iconKey: "saas" },
+    { id: "retail", label: "Retail", iconKey: "retail" },
+    { id: "other", label: "Other", iconKey: "other" },
   ],
 };
 
@@ -19,9 +19,9 @@ const restaurantSteps: AssessmentQuestion[] = [
     title: "How many locations do you operate?",
     multiSelect: false,
     options: [
-      { id: "one", label: "One location", emoji: "📍" },
-      { id: "2-5", label: "2-5 locations", emoji: "📍📍" },
-      { id: "6+", label: "6+ locations", emoji: "🏢" },
+      { id: "one", label: "One location" },
+      { id: "2-5", label: "2-5 locations" },
+      { id: "6+", label: "6+ locations" },
     ],
   },
   {
@@ -29,11 +29,11 @@ const restaurantSteps: AssessmentQuestion[] = [
     title: "Who are most of your customers?",
     multiSelect: false,
     options: [
-      { id: "local", label: "Local Residents", emoji: "👨‍👩‍👧" },
-      { id: "students", label: "Students", emoji: "🎓" },
-      { id: "office", label: "Office Workers", emoji: "🏢" },
-      { id: "tourists", label: "Tourists", emoji: "✈️" },
-      { id: "international", label: "International Visitors", emoji: "🌏" },
+      { id: "local", label: "Local Residents" },
+      { id: "students", label: "Students" },
+      { id: "office", label: "Office Workers" },
+      { id: "tourists", label: "Tourists" },
+      { id: "international", label: "International Visitors" },
     ],
   },
   {
@@ -41,11 +41,11 @@ const restaurantSteps: AssessmentQuestion[] = [
     title: "What are you trying to improve?",
     multiSelect: true,
     options: [
-      { id: "lower-costs", label: "Lower Costs", emoji: "💰" },
-      { id: "increase-sales", label: "Increase Sales", emoji: "📈" },
-      { id: "faster-checkout", label: "Faster Checkout", emoji: "⚡" },
-      { id: "more-options", label: "More Payment Options", emoji: "💳" },
-      { id: "reduce-issues", label: "Reduce Payment Issues", emoji: "🛡" },
+      { id: "lower-costs", label: "Lower Costs" },
+      { id: "increase-sales", label: "Increase Sales" },
+      { id: "faster-checkout", label: "Faster Checkout" },
+      { id: "more-options", label: "More Payment Options" },
+      { id: "reduce-issues", label: "Reduce Payment Issues" },
     ],
   },
   {
@@ -80,9 +80,9 @@ const ecommerceSteps: AssessmentQuestion[] = [
     title: "Where are your customers?",
     multiSelect: false,
     options: [
-      { id: "mostly-us", label: "Mostly US", emoji: "🇺🇸" },
-      { id: "us-canada", label: "US & Canada", emoji: "🇺🇸🇨🇦" },
-      { id: "international", label: "International", emoji: "🌎" },
+      { id: "mostly-us", label: "Mostly US" },
+      { id: "us-canada", label: "US & Canada" },
+      { id: "international", label: "International" },
     ],
   },
   {
@@ -90,11 +90,11 @@ const ecommerceSteps: AssessmentQuestion[] = [
     title: "What are you trying to improve?",
     multiSelect: true,
     options: [
-      { id: "conversion", label: "Increase Conversion", emoji: "📈" },
-      { id: "lower-costs", label: "Lower Costs", emoji: "💰" },
-      { id: "expand", label: "Expand Internationally", emoji: "🌎" },
-      { id: "chargebacks", label: "Reduce Chargebacks", emoji: "🛡" },
-      { id: "payouts", label: "Faster Payouts", emoji: "⚡" },
+      { id: "conversion", label: "Increase Conversion" },
+      { id: "lower-costs", label: "Lower Costs" },
+      { id: "expand", label: "Expand Internationally" },
+      { id: "chargebacks", label: "Reduce Chargebacks" },
+      { id: "payouts", label: "Faster Payouts" },
     ],
   },
   {
@@ -118,9 +118,9 @@ const saasSteps: AssessmentQuestion[] = [
     title: "How do customers pay?",
     multiSelect: false,
     options: [
-      { id: "one-time", label: "One-Time", emoji: "💵" },
-      { id: "subscription", label: "Subscription", emoji: "🔄" },
-      { id: "both", label: "Both", emoji: "🔄 + 💵" },
+      { id: "one-time", label: "One-Time" },
+      { id: "subscription", label: "Subscription" },
+      { id: "both", label: "Both" },
     ],
   },
   {
@@ -128,8 +128,8 @@ const saasSteps: AssessmentQuestion[] = [
     title: "Where are your customers?",
     multiSelect: false,
     options: [
-      { id: "mostly-us", label: "Mostly US", emoji: "🇺🇸" },
-      { id: "international", label: "International", emoji: "🌎" },
+      { id: "mostly-us", label: "Mostly US" },
+      { id: "international", label: "International" },
     ],
   },
   {
@@ -137,11 +137,11 @@ const saasSteps: AssessmentQuestion[] = [
     title: "What are you trying to improve?",
     multiSelect: true,
     options: [
-      { id: "conversion", label: "Increase Conversion", emoji: "📈" },
-      { id: "international", label: "International Growth", emoji: "🌎" },
-      { id: "lower-costs", label: "Lower Costs", emoji: "💰" },
-      { id: "payouts", label: "Faster Payouts", emoji: "⚡" },
-      { id: "failed-payments", label: "Reduce Failed Payments", emoji: "🛡" },
+      { id: "conversion", label: "Increase Conversion" },
+      { id: "international", label: "International Growth" },
+      { id: "lower-costs", label: "Lower Costs" },
+      { id: "payouts", label: "Faster Payouts" },
+      { id: "failed-payments", label: "Reduce Failed Payments" },
     ],
   },
   {
@@ -221,8 +221,8 @@ const otherSteps: AssessmentQuestion[] = [
     title: "Where are your customers?",
     multiSelect: false,
     options: [
-      { id: "mostly-us", label: "Mostly US", emoji: "🇺🇸" },
-      { id: "international", label: "International", emoji: "🌎" },
+      { id: "mostly-us", label: "Mostly US" },
+      { id: "international", label: "International" },
     ],
   },
   {
@@ -230,11 +230,11 @@ const otherSteps: AssessmentQuestion[] = [
     title: "What are you trying to improve?",
     multiSelect: true,
     options: [
-      { id: "conversion", label: "Increase Conversion", emoji: "📈" },
-      { id: "lower-costs", label: "Lower Costs", emoji: "💰" },
-      { id: "expand", label: "Expand Internationally", emoji: "🌎" },
-      { id: "chargebacks", label: "Reduce Chargebacks", emoji: "🛡" },
-      { id: "payouts", label: "Faster Payouts", emoji: "⚡" },
+      { id: "conversion", label: "Increase Conversion" },
+      { id: "lower-costs", label: "Lower Costs" },
+      { id: "expand", label: "Expand Internationally" },
+      { id: "chargebacks", label: "Reduce Chargebacks" },
+      { id: "payouts", label: "Faster Payouts" },
     ],
   },
   {
@@ -255,31 +255,31 @@ export const businessFlows: Record<BusinessType, BusinessFlow> = {
   restaurant: {
     businessType: "restaurant",
     label: "Restaurant",
-    emoji: "🍽",
+    iconKey: "restaurant",
     steps: restaurantSteps,
   },
   ecommerce: {
     businessType: "ecommerce",
     label: "Ecommerce",
-    emoji: "🛒",
+    iconKey: "ecommerce",
     steps: ecommerceSteps,
   },
   saas: {
     businessType: "saas",
     label: "SaaS",
-    emoji: "💻",
+    iconKey: "saas",
     steps: saasSteps,
   },
   retail: {
     businessType: "retail",
     label: "Retail",
-    emoji: "🏬",
+    iconKey: "retail",
     steps: retailSteps,
   },
   other: {
     businessType: "other",
     label: "Other",
-    emoji: "🔧",
+    iconKey: "other",
     steps: otherSteps,
   },
 };
@@ -300,7 +300,7 @@ export function getOptionLabel(
 ): string {
   const option = question.options.find((o) => o.id === optionId);
   if (!option) return optionId;
-  return option.emoji ? `${option.emoji} ${option.label}` : option.label;
+  return option.label;
 }
 
 export function formatAnswersForPrompt(

@@ -1,4 +1,6 @@
 import type { DeepAssessmentResult } from "@/lib/assessment/deepSchema";
+import { deepResultIcons } from "@/lib/assessment/iconMap";
+import { LabelText, SmallText } from "@/components/payth/Typography";
 import DynamicCardGrid, { DynamicCardGridItem } from "../DynamicCardGrid";
 import ResultSection from "../ResultSection";
 
@@ -8,40 +10,34 @@ export default function BenchmarkGaps({
   benchmark: DeepAssessmentResult["benchmarkComparison"];
 }) {
   return (
-    <ResultSection title="Benchmark Gaps">
+    <ResultSection title="Benchmark Gaps" icon={deepResultIcons.benchmarkGaps}>
       <p className="font-bold text-payth-navy">{benchmark.segment}</p>
-      <p className="mt-2 text-sm leading-6 text-slate-600">{benchmark.summary}</p>
+      <SmallText className="mt-2">{benchmark.summary}</SmallText>
 
-      <p className="mt-4 text-xs font-bold uppercase tracking-wide text-payth-muted">
-        Strong areas
-      </p>
+      <LabelText className="mt-4 block">Strong areas</LabelText>
       <ul className="mt-2 space-y-1">
         {benchmark.strongAreas.map((area) => (
-          <li key={area} className="text-sm text-slate-600">
+          <li key={area} className="text-payth-body-sm leading-[1.45] text-payth-muted">
             {area}
           </li>
         ))}
       </ul>
 
-      <p className="mt-4 text-xs font-bold uppercase tracking-wide text-payth-muted">
-        Improvement areas
-      </p>
+      <LabelText className="mt-4 block">Improvement areas</LabelText>
       <ul className="mt-2 space-y-1">
         {benchmark.improvementAreas.map((area) => (
-          <li key={area} className="text-sm text-slate-600">
+          <li key={area} className="text-payth-body-sm leading-[1.45] text-payth-muted">
             {area}
           </li>
         ))}
       </ul>
 
-      <p className="mt-4 text-xs font-bold uppercase tracking-wide text-payth-muted">
-        Businesses like yours usually track
-      </p>
+      <LabelText className="mt-4 block">Businesses like yours usually track</LabelText>
       <div className="mt-2 flex flex-wrap gap-2">
         {benchmark.typicalSetup.map((item) => (
           <span
             key={item}
-            className="rounded-full bg-indigo-50 px-3 py-1 text-sm font-semibold text-payth-indigo"
+            className="rounded-full bg-payth-blueSoft px-3 py-1 text-sm font-semibold text-payth-blue"
           >
             {item}
           </span>
@@ -50,19 +46,17 @@ export default function BenchmarkGaps({
 
       {benchmark.gapsToCheck.length > 0 && (
         <div className="mt-6">
-          <p className="text-xs font-bold uppercase tracking-wide text-payth-muted">
-            Possible gaps
-          </p>
+          <LabelText>Possible gaps</LabelText>
           <DynamicCardGrid count={benchmark.gapsToCheck.length} className="mt-3">
             {benchmark.gapsToCheck.map((gap) => (
               <DynamicCardGridItem key={gap.gap}>
-                <div className="h-full rounded-xl border border-amber-200 bg-amber-50 p-4">
+                <div className="h-full rounded-xl border border-payth-risk/30 bg-payth-riskBg/50 p-4">
                   <p className="font-bold text-payth-navy">{gap.gap}</p>
-                  <p className="mt-1 text-sm text-slate-600">{gap.whyItMatters}</p>
-                  <p className="mt-2 text-sm text-slate-600">
+                  <SmallText className="mt-1">{gap.whyItMatters}</SmallText>
+                  <SmallText className="mt-2">
                     <span className="font-semibold text-payth-navy">How to check: </span>
                     {gap.howToCheck}
-                  </p>
+                  </SmallText>
                 </div>
               </DynamicCardGridItem>
             ))}
@@ -70,10 +64,10 @@ export default function BenchmarkGaps({
         </div>
       )}
 
-      <p className="mt-4 text-sm text-slate-600">
+      <SmallText className="mt-4">
         <span className="font-semibold text-payth-navy">Most common next upgrade: </span>
         {benchmark.nextCommonUpgrade}
-      </p>
+      </SmallText>
     </ResultSection>
   );
 }

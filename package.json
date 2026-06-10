@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "content:generate": "tsx scripts/generate-playbook.ts",
+    "content:generate:all": "tsx scripts/generate-playbook.ts --all"
   },
   "dependencies": {
     "lucide-react": "^0.511.0",
@@ -22,9 +24,11 @@
     "@types/react-dom": "^19.1.5",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.28.0",
+    "dotenv": "^16.5.0",
     "eslint-config-next": "^15.3.3",
     "postcss": "^8.5.4",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   }
 }

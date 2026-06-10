@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { ZodError } from "zod";
 import { getDeepQuestions } from "@/lib/assessment/deepRegistry";
 import { deepAssessmentResultSchema } from "@/lib/assessment/deepSchema";
 import { buildDeepUserPrompt, DEEP_SYSTEM_PROMPT } from "@/lib/assessment/deepPrompts";
+import { normalizeDeepAssessmentResponse } from "@/lib/assessment/normalizeDeepResult";
 import { getProviderProfile } from "@/lib/assessment/providerProfiles";
 import type { AssessmentAnswers, BusinessType, DeepAnswer } from "@/lib/assessment/types";
 
@@ -72,20 +74,20 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Empty response from AI" }, { status: 500 });
     }
 
-    const parsed = JSON.parse(content);
-
-    if (!parsed.whatToAskProvider?.provider) {
-      parsed.whatToAskProvider = {
-        ...parsed.whatToAskProvider,
-        provider: providerProfile.displayName,
-      };
-    }
-
-    const result = deepAssessmentResultSchema.parse(parsed);
+    const parsed = JSON.parse(content) as Record<string, unknown>;
+    const normalized = normalizeDeepAssessmentResponse(parsed, providerProfile);
+    const result = deepAssessmentResultSchema.parse(normalized);
 
     return NextResponse.json(result);
   } catch (error) {
     console.error("Deep assessment API error:", error);
+
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        { error: "We could not format the assessment result. Please try again." },
+        { status: 500 },
+      );
+    }
 
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message }, { status: 500 });

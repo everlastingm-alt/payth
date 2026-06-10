@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import PaythLogo from "@/components/PaythLogo";
+import PaythButton from "@/components/payth/PaythButton";
+import PaythHeader from "@/components/payth/PaythHeader";
+import { SectionTitle } from "@/components/payth/Typography";
 import { getQuestionForStep } from "@/lib/assessment/flows";
 import type {
   AssessmentAnswers,
@@ -143,19 +144,10 @@ export default function AssessmentWizard() {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-payth-bg">
-      <header className="shrink-0 border-b border-slate-200/70 bg-white/80 px-6 py-4 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-2xl items-center justify-between">
-          <Link href="/" aria-label="PAYTH home">
-            <PaythLogo />
-          </Link>
-          <Link
-            href="/"
-            className="text-sm font-semibold text-payth-muted transition hover:text-payth-indigo"
-          >
-            Exit
-          </Link>
-        </div>
-      </header>
+      <PaythHeader
+        className="shrink-0"
+        secondaryAction={{ href: "/", label: "Exit" }}
+      />
 
       {phase === "question" && <AssessmentProgress currentStep={currentStep} />}
 
@@ -175,15 +167,14 @@ export default function AssessmentWizard() {
 
         {phase === "error" && (
           <div className="flex h-full flex-col items-center justify-center text-center">
-            <p className="text-2xl font-black text-payth-navy">Something went wrong</p>
+            <SectionTitle>Something went wrong</SectionTitle>
             <p className="mt-3 text-payth-muted">{error}</p>
-            <button
-              type="button"
+            <PaythButton
               onClick={() => goToLoading(answers)}
-              className="mt-8 rounded-xl bg-gradient-to-r from-payth-purple to-payth-blue px-8 py-4 font-bold text-white shadow-lg"
+              className="mt-8 px-8 py-4"
             >
               Try Again
-            </button>
+            </PaythButton>
           </div>
         )}
       </main>

@@ -1,9 +1,18 @@
 import type { DeepAssessmentResult } from "@/lib/assessment/deepSchema";
+import { ClipboardCheck } from "lucide-react";
+import { deepResultIcons } from "@/lib/assessment/iconMap";
+import { CardTitle, LabelText, SmallText } from "@/components/payth/Typography";
 import DynamicCardGrid, { DynamicCardGridItem } from "../DynamicCardGrid";
 import LevelBadge from "../LevelBadge";
 import ResultSection from "../ResultSection";
 
 type PlaybookItem = DeepAssessmentResult["actionPlaybook"][number];
+
+const priorityBorder: Record<string, string> = {
+  High: "border-l-payth-blue",
+  Medium: "border-l-payth-risk",
+  Low: "border-l-payth-muted",
+};
 
 export default function ActionPlaybook({
   actions,
@@ -11,7 +20,7 @@ export default function ActionPlaybook({
   actions: DeepAssessmentResult["actionPlaybook"];
 }) {
   return (
-    <ResultSection title="Action Playbook">
+    <ResultSection title="Action Playbook" icon={deepResultIcons.actionPlaybook}>
       <DynamicCardGrid count={actions.length}>
         {actions.map((item) => (
           <DynamicCardGridItem key={item.action}>
@@ -24,43 +33,50 @@ export default function ActionPlaybook({
 }
 
 function PlaybookCard({ item }: { item: PlaybookItem }) {
+  const borderClass = priorityBorder[item.priority] ?? "border-l-payth-muted";
+
   return (
-    <div className="flex h-full flex-col rounded-xl border border-payth-border bg-slate-50 p-5">
+    <div
+      className={`flex h-full flex-col rounded-xl border border-payth-border border-l-4 bg-slate-50 p-5 ${borderClass}`}
+    >
       <div className="flex flex-wrap items-center gap-3">
         <LevelBadge level={item.priority} />
-        <span className="text-xs font-semibold text-payth-muted">{item.estimatedEffort}</span>
+        <span className="font-mono text-xs font-semibold text-payth-muted">{item.estimatedEffort}</span>
       </div>
 
-      <h4 className="mt-3 text-lg font-black text-payth-navy">{item.action}</h4>
+      <div className="mt-3 flex items-start gap-3">
+        <ClipboardCheck size={20} className="mt-0.5 shrink-0 text-payth-blue" strokeWidth={2} />
+        <CardTitle as="h4">{item.action}</CardTitle>
+      </div>
 
-      <p className="mt-2 text-sm leading-6 text-slate-600">
-        <span className="font-semibold text-payth-navy">Why: </span>
-        {item.why}
-      </p>
+      <div className="mt-3">
+        <LabelText>Why</LabelText>
+        <SmallText className="mt-1">{item.why}</SmallText>
+      </div>
 
       <div className="mt-4">
-        <p className="text-xs font-bold uppercase tracking-wide text-payth-muted">How to do it</p>
+        <LabelText>How to do it</LabelText>
         <ol className="mt-2 list-decimal space-y-1 pl-5">
           {item.howToDoIt.map((step) => (
-            <li key={step} className="text-sm text-slate-600">
+            <li key={step} className="text-payth-body-sm leading-[1.45] text-payth-muted">
               {step}
             </li>
           ))}
         </ol>
       </div>
 
-      <p className="mt-4 text-sm text-slate-600">
+      <SmallText className="mt-4">
         <span className="font-semibold text-payth-navy">Who to contact: </span>
         {item.whoToContact}
-      </p>
+      </SmallText>
 
       {item.questionsToAsk.length > 0 && (
         <div className="mt-4">
-          <p className="text-xs font-bold uppercase tracking-wide text-payth-muted">Ask</p>
+          <LabelText>Questions to ask</LabelText>
           <ul className="mt-2 space-y-1">
             {item.questionsToAsk.map((q) => (
-              <li key={q} className="flex items-start gap-2 text-sm text-slate-600">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-payth-indigo" />
+              <li key={q} className="flex items-start gap-2 text-payth-body-sm leading-[1.45] text-payth-muted">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-payth-blue" />
                 {q}
               </li>
             ))}
@@ -70,12 +86,10 @@ function PlaybookCard({ item }: { item: PlaybookItem }) {
 
       {item.negotiationTips && item.negotiationTips.length > 0 && (
         <div className="mt-4">
-          <p className="text-xs font-bold uppercase tracking-wide text-payth-muted">
-            Negotiation tips
-          </p>
+          <LabelText>Negotiation tips</LabelText>
           <ul className="mt-2 space-y-1">
             {item.negotiationTips.map((tip) => (
-              <li key={tip} className="text-sm text-slate-600">
+              <li key={tip} className="text-payth-body-sm leading-[1.45] text-payth-muted">
                 {tip}
               </li>
             ))}
@@ -85,14 +99,12 @@ function PlaybookCard({ item }: { item: PlaybookItem }) {
 
       {item.providerFeaturesToReview && item.providerFeaturesToReview.length > 0 && (
         <div className="mt-4">
-          <p className="text-xs font-bold uppercase tracking-wide text-payth-muted">
-            Features to review
-          </p>
+          <LabelText>Features to review</LabelText>
           <div className="mt-2 flex flex-wrap gap-2">
             {item.providerFeaturesToReview.map((feature) => (
               <span
                 key={feature}
-                className="rounded-full bg-indigo-50 px-3 py-1 text-sm font-semibold text-payth-indigo"
+                className="rounded-full bg-payth-blueSoft px-3 py-1 text-sm font-semibold text-payth-blue"
               >
                 {feature}
               </span>
@@ -101,10 +113,10 @@ function PlaybookCard({ item }: { item: PlaybookItem }) {
         </div>
       )}
 
-      <p className="mt-4 text-sm text-slate-600">
-        <span className="font-semibold text-payth-navy">Success metric: </span>
-        {item.successMetric}
-      </p>
+      <div className="mt-4">
+        <LabelText>Success metric</LabelText>
+        <SmallText className="mt-1">{item.successMetric}</SmallText>
+      </div>
     </div>
   );
 }

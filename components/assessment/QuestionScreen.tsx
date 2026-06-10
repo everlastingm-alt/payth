@@ -1,4 +1,7 @@
 import { ArrowRight } from "lucide-react";
+import PaythButton from "@/components/payth/PaythButton";
+import { PageTitle } from "@/components/payth/Typography";
+import { getBusinessTypeIcon } from "@/lib/assessment/iconMap";
 import type { AssessmentQuestion } from "@/lib/assessment/types";
 import OptionCard from "./OptionCard";
 
@@ -20,9 +23,7 @@ export default function QuestionScreen({
 
   return (
     <div className="flex h-full flex-col">
-      <h2 className="text-3xl font-black leading-tight tracking-tight text-payth-navy md:text-4xl">
-        {question.title}
-      </h2>
+      <PageTitle className="leading-[1.12]">{question.title}</PageTitle>
 
       <div className="mt-8 flex flex-1 flex-col gap-3 overflow-y-auto pb-4">
         {question.options.map((option) => {
@@ -30,11 +31,13 @@ export default function QuestionScreen({
             ? selectedArray.includes(option.id)
             : selected === option.id;
 
+          const icon = option.iconKey ? getBusinessTypeIcon(option.iconKey) : undefined;
+
           return (
             <OptionCard
               key={option.id}
               label={option.label}
-              emoji={option.emoji}
+              icon={icon}
               selected={isSelected}
               onClick={() => onSelect(option.id)}
             />
@@ -44,14 +47,13 @@ export default function QuestionScreen({
 
       {question.multiSelect && (
         <div className="mt-4 shrink-0 pb-2">
-          <button
-            type="button"
+          <PaythButton
             onClick={onContinue}
             disabled={!canContinue}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-payth-purple to-payth-blue px-8 py-4 text-lg font-bold text-white shadow-lg shadow-blue-500/20 transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-40"
+            className="w-full px-8 py-4 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Continue <ArrowRight size={20} />
-          </button>
+          </PaythButton>
         </div>
       )}
     </div>

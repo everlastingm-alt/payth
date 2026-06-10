@@ -16,7 +16,7 @@ export type QuestionType = "single_select" | "multi_select" | "number" | "text";
 export interface QuestionOption {
   id: string;
   label: string;
-  emoji?: string;
+  iconKey?: string;
 }
 
 export interface AssessmentQuestion {
@@ -29,7 +29,7 @@ export interface AssessmentQuestion {
 export interface BusinessFlow {
   businessType: BusinessType;
   label: string;
-  emoji: string;
+  iconKey: string;
   steps: AssessmentQuestion[];
 }
 

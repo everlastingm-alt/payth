@@ -1,10 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Sparkles } from "lucide-react";
-import PaythLogo from "@/components/PaythLogo";
+import PaythButton from "@/components/payth/PaythButton";
+import PaythHeader from "@/components/payth/PaythHeader";
+import { BodyText, PageTitle, SectionTitle, SmallText } from "@/components/payth/Typography";
 import { getDeepQuestions } from "@/lib/assessment/deepRegistry";
 import type { DeepAssessmentResult } from "@/lib/assessment/deepSchema";
 import type {
@@ -131,19 +132,10 @@ export default function DeepAssessmentWizard() {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-payth-bg">
-      <header className="shrink-0 border-b border-slate-200/70 bg-white/80 px-6 py-4 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-2xl items-center justify-between">
-          <Link href="/" aria-label="PAYTH home">
-            <PaythLogo />
-          </Link>
-          <Link
-            href="/results"
-            className="text-sm font-semibold text-payth-muted transition hover:text-payth-indigo"
-          >
-            Exit
-          </Link>
-        </div>
-      </header>
+      <PaythHeader
+        className="shrink-0"
+        secondaryAction={{ href: "/results", label: "Exit" }}
+      />
 
       {phase === "question" && (
         <AssessmentProgress
@@ -155,26 +147,25 @@ export default function DeepAssessmentWizard() {
       <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col overflow-hidden px-6 py-8">
         {phase === "intro" && (
           <div className="flex h-full flex-col items-center justify-center text-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white/70 px-4 py-2 text-sm font-bold text-payth-indigo shadow-sm">
-              <Sparkles size={16} />
-              Quick Assessment Ready
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-payth-border bg-white/70 px-4 py-2 shadow-sm">
+              <Sparkles size={16} className="text-payth-blue" strokeWidth={2} />
+              <span className="text-payth-label font-bold uppercase tracking-[0.08em] text-payth-indigo">
+                Quick Assessment Ready
+              </span>
             </div>
-            <h2 className="text-3xl font-black text-payth-navy md:text-4xl">
-              Want deeper insights?
-            </h2>
-            <p className="mt-4 max-w-md text-lg leading-8 text-slate-600">
+            <PageTitle>Want deeper insights?</PageTitle>
+            <BodyText className="mt-4 max-w-md">
               Answer {questions.length} more questions to get specific recommendations.
-            </p>
-            <p className="mt-2 text-sm text-payth-muted">
+            </BodyText>
+            <SmallText className="mt-2">
               Uncover cost, conversion, and risk opportunities tailored to your business.
-            </p>
-            <button
-              type="button"
+            </SmallText>
+            <PaythButton
               onClick={() => setPhase("question")}
-              className="mt-10 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-payth-purple to-payth-blue px-8 py-4 text-lg font-bold text-white shadow-lg shadow-blue-500/20 transition hover:opacity-95"
+              className="mt-10 px-8 py-4"
             >
               Unlock Deeper Insights <ArrowRight size={20} />
-            </button>
+            </PaythButton>
           </div>
         )}
 
@@ -192,15 +183,14 @@ export default function DeepAssessmentWizard() {
 
         {phase === "error" && (
           <div className="flex h-full flex-col items-center justify-center text-center">
-            <p className="text-2xl font-black text-payth-navy">Something went wrong</p>
+            <SectionTitle>Something went wrong</SectionTitle>
             <p className="mt-3 text-payth-muted">{error}</p>
-            <button
-              type="button"
+            <PaythButton
               onClick={() => goToLoading(deepAnswers)}
-              className="mt-8 rounded-xl bg-gradient-to-r from-payth-purple to-payth-blue px-8 py-4 font-bold text-white shadow-lg"
+              className="mt-8 px-8 py-4"
             >
               Try Again
-            </button>
+            </PaythButton>
           </div>
         )}
       </main>

@@ -1,15 +1,15 @@
 type Level = "High" | "Medium" | "Low";
 
 const styles: Record<Level, string> = {
-  High: "bg-orange-100 text-orange-700",
-  Medium: "bg-amber-100 text-amber-700",
-  Low: "bg-emerald-100 text-emerald-700",
+  High: "bg-payth-redSoft text-payth-critical",
+  Medium: "bg-payth-amberSoft text-payth-risk",
+  Low: "bg-payth-mintSoft text-payth-opportunity",
 };
 
 export default function LevelBadge({ level }: { level: Level }) {
   return (
     <span
-      className={`inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${styles[level]}`}
+      className={`inline-flex rounded-full px-3 py-1 font-mono text-xs font-bold uppercase tracking-wide ${styles[level]}`}
     >
       {level}
     </span>

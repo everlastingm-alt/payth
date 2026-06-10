@@ -4,10 +4,10 @@ export default function PaythLogo({ className = "" }: { className?: string }) {
   return (
     <div className={className}>
       <Image
-        src="/payth-logo-transparent.png"
+        src="/brand/payth-logo-full.svg"
         alt="PAYTH — Find your path to payment"
-        width={778}
-        height={327}
+        width={720}
+        height={230}
         priority
         className="h-9 w-auto sm:h-10 md:h-11"
       />

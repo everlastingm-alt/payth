@@ -1,5 +1,7 @@
-import Link from "next/link";
-import { ArrowRight, RefreshCw, ShieldCheck } from "lucide-react";
+import { ArrowRight, Ban, RefreshCw, ShieldCheck } from "lucide-react";
+import PaythButton from "@/components/payth/PaythButton";
+import { CardTitle, LabelText, PageTitle, SmallText } from "@/components/payth/Typography";
+import { quickResultIcons } from "@/lib/assessment/iconMap";
 import type { AssessmentResult } from "@/lib/assessment/schema";
 import LevelBadge from "./LevelBadge";
 import ResultSection from "./ResultSection";
@@ -12,12 +14,10 @@ export default function ResultsDashboard({ result }: ResultsDashboardProps) {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-3xl font-black text-payth-navy md:text-4xl">
-          {result.executiveSummary.headline}
-        </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-600">
+        <PageTitle>{result.executiveSummary.headline}</PageTitle>
+        <SmallText className="mx-auto mt-4 max-w-2xl text-[15px] leading-[1.55]">
           {result.executiveSummary.summary}
-        </p>
+        </SmallText>
       </div>
 
       <ResultSection title="Business Profile">
@@ -30,62 +30,70 @@ export default function ResultsDashboard({ result }: ResultsDashboardProps) {
       </ResultSection>
 
       <ResultSection title="What's Working Well">
-        <h4 className="text-xl font-black text-payth-navy">{result.workingWell.title}</h4>
-        <p className="mt-3 leading-7 text-slate-600">{result.workingWell.description}</p>
+        <CardTitle as="h4">{result.workingWell.title}</CardTitle>
+        <SmallText className="mt-2">{result.workingWell.description}</SmallText>
       </ResultSection>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <ResultSection title="Biggest Opportunity">
+        <ResultSection
+          title="Biggest Opportunity"
+          icon={quickResultIcons.opportunity}
+          iconTone="mint"
+          accent="mint"
+        >
           <div className="mb-3 flex items-center justify-between gap-2">
-            <h4 className="text-xl font-black text-payth-navy">
+            <h4 className="text-[20px] font-bold leading-[1.3] text-payth-navy">
               {result.biggestOpportunity.title}
             </h4>
             <LevelBadge level={result.biggestOpportunity.impact} />
           </div>
-          <p className="leading-7 text-slate-600">{result.biggestOpportunity.description}</p>
-          <p className="mt-3 text-sm font-semibold text-payth-indigo">
+          <SmallText>{result.biggestOpportunity.description}</SmallText>
+          <p className="mt-3 text-[15px] font-semibold text-payth-opportunity">
             {result.biggestOpportunity.whyItMatters}
           </p>
         </ResultSection>
 
-        <ResultSection title="Biggest Risk">
+        <ResultSection
+          title="Biggest Risk"
+          icon={quickResultIcons.risk}
+          iconTone="amber"
+          accent="amber"
+        >
           <div className="mb-3 flex items-center justify-between gap-2">
-            <h4 className="text-xl font-black text-payth-navy">
+            <h4 className="text-[20px] font-bold leading-[1.3] text-payth-navy">
               {result.biggestRisk.title}
             </h4>
             <LevelBadge level={result.biggestRisk.severity} />
           </div>
-          <p className="leading-7 text-slate-600">{result.biggestRisk.description}</p>
-          <p className="mt-3 text-sm font-semibold text-payth-indigo">
+          <SmallText>{result.biggestRisk.description}</SmallText>
+          <p className="mt-3 text-[15px] font-semibold text-payth-risk">
             {result.biggestRisk.whyItMatters}
           </p>
         </ResultSection>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <ResultSection title="Do Now">
+        <ResultSection title="Do Now" icon={quickResultIcons.doNow} iconTone="blue">
           <ul className="space-y-4">
             {result.recommendedNow.map((item) => (
-              <li key={item.title} className="border-b border-slate-100 pb-4 last:border-0 last:pb-0">
+              <li key={item.title} className="border-b border-payth-border pb-4 last:border-0 last:pb-0">
                 <h4 className="font-bold text-payth-navy">{item.title}</h4>
-                <p className="mt-1 text-sm leading-6 text-slate-600">{item.reason}</p>
+                <SmallText className="mt-1">{item.reason}</SmallText>
               </li>
             ))}
           </ul>
         </ResultSection>
 
-        <ResultSection title="Do Later">
+        <ResultSection title="Do Later" icon={quickResultIcons.doLater} iconTone="blue">
           <ul className="space-y-4">
             {result.recommendedLater.map((item) => (
               <li
                 key={item.recommendation}
-                className="border-b border-slate-100 pb-4 last:border-0 last:pb-0"
+                className="border-b border-payth-border pb-4 last:border-0 last:pb-0"
               >
-                <p className="text-xs font-bold uppercase tracking-wide text-payth-muted">
-                  When: {item.trigger}
-                </p>
+                <LabelText>When: {item.trigger}</LabelText>
                 <h4 className="mt-1 font-bold text-payth-navy">{item.recommendation}</h4>
-                <p className="mt-1 text-sm leading-6 text-slate-600">{item.reason}</p>
+                <SmallText className="mt-1">{item.reason}</SmallText>
               </li>
             ))}
           </ul>
@@ -104,29 +112,31 @@ export default function ResultsDashboard({ result }: ResultsDashboardProps) {
                   <h4 className="font-bold text-payth-navy">{win.action}</h4>
                   <div className="mt-2 flex flex-wrap gap-2">
                     <LevelBadge level={win.impact} />
-                    <span className="rounded-full bg-slate-200 px-3 py-1 text-xs font-bold text-slate-600">
+                    <span className="rounded-full bg-slate-200 px-3 py-1 font-mono text-xs font-bold text-slate-600">
                       Effort: {win.effort}
                     </span>
                   </div>
-                  <p className="mt-2 text-sm text-slate-600">{win.expectedBenefit}</p>
+                  <SmallText className="mt-2">{win.expectedBenefit}</SmallText>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-sm text-slate-500">
-              No quick wins identified for your profile yet.
-            </p>
+            <SmallText>No quick wins identified for your profile yet.</SmallText>
           )}
         </ResultSection>
 
-        <ResultSection title="Not Needed Yet">
+        <ResultSection
+          title="Not Needed Yet"
+          icon={quickResultIcons.notNeededYet}
+          iconTone="blue"
+        >
           <ul className="space-y-3">
             {result.notNeededYet.map((item) => (
               <li key={item.item} className="flex gap-3">
-                <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-slate-300" />
-                <div>
+                <Ban size={16} className="mt-0.5 shrink-0 text-payth-muted" strokeWidth={2} />
+                <div className="text-payth-body-sm leading-[1.45] text-payth-muted">
                   <span className="font-bold text-payth-navy">{item.item}</span>
-                  <span className="text-slate-600"> — {item.reason}</span>
+                  <span> — {item.reason}</span>
                 </div>
               </li>
             ))}
@@ -137,85 +147,83 @@ export default function ResultsDashboard({ result }: ResultsDashboardProps) {
       <div className="grid gap-6 md:grid-cols-2">
         <ResultSection title="Businesses Like Yours">
           <p className="font-bold text-payth-navy">{result.peerBenchmark.segment}</p>
-          <p className="mt-3 text-sm text-payth-muted">Commonly used:</p>
+          <LabelText className="mt-3 block">Commonly used</LabelText>
           <div className="mt-2 flex flex-wrap gap-2">
             {result.peerBenchmark.commonlyUsed.map((provider) => (
               <span
                 key={provider}
-                className="rounded-full bg-indigo-50 px-3 py-1 text-sm font-semibold text-payth-indigo"
+                className="rounded-full bg-payth-blueSoft px-3 py-1 text-sm font-semibold text-payth-blue"
               >
                 {provider}
               </span>
             ))}
           </div>
-          <p className="mt-4 text-sm leading-6 text-slate-600">
+          <SmallText className="mt-4">
             <span className="font-semibold text-payth-navy">Most common next upgrade: </span>
             {result.peerBenchmark.mostCommonNextUpgrade}
-          </p>
+          </SmallText>
         </ResultSection>
 
         <ResultSection title="Growth Roadmap">
-          <div className="space-y-4">
-            {result.growthRoadmap.map((phase) => (
-              <div key={phase.trigger} className="border-l-4 border-payth-indigo pl-4">
-                <p className="text-xs font-bold uppercase tracking-wide text-payth-muted">
-                  {phase.trigger}
-                </p>
-                <h4 className="mt-1 text-base font-black text-payth-navy">{phase.focus}</h4>
-                <ul className="mt-2 space-y-1">
-                  {phase.actions.map((action) => (
-                    <li key={action} className="flex items-start gap-2 text-sm text-slate-600">
-                      <ArrowRight size={14} className="mt-0.5 shrink-0 text-payth-indigo" />
-                      {action}
-                    </li>
-                  ))}
-                </ul>
+          <div className="space-y-2">
+            {result.growthRoadmap.map((phase, index) => (
+              <div key={phase.trigger} className="flex gap-4">
+                <div className="flex flex-col items-center pt-1">
+                  <div
+                    className={`h-2.5 w-2.5 rounded-full ${
+                      index === 0 ? "bg-payth-blue payth-active-dot" : "bg-payth-border"
+                    }`}
+                  />
+                  {index < result.growthRoadmap.length - 1 && (
+                    <div className="mt-1 w-0.5 flex-1 bg-[#DBEAFE] opacity-35" style={{ minHeight: "24px" }} />
+                  )}
+                </div>
+                <div className="pb-4">
+                  <LabelText>{phase.trigger}</LabelText>
+                  <h4 className="mt-1 text-payth-card font-bold text-payth-navy">{phase.focus}</h4>
+                  <ul className="mt-2 space-y-1">
+                    {phase.actions.map((action) => (
+                      <li key={action} className="flex items-start gap-2 text-payth-body-sm leading-[1.45] text-payth-muted">
+                        <ArrowRight size={14} className="mt-0.5 shrink-0 text-payth-blue" />
+                        {action}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
         </ResultSection>
       </div>
 
-      <div className="flex flex-col items-center gap-4 rounded-2xl border border-payth-border bg-gradient-to-br from-indigo-50 to-blue-50 p-6 text-center">
+      <div className="flex flex-col items-center gap-4 rounded-payth-card border border-payth-border bg-payth-blueSoft/40 p-6 text-center shadow-payth-card">
         <div className="flex items-center gap-2">
-          <ShieldCheck className="text-payth-indigo" size={20} />
-          <span className="text-sm font-bold uppercase tracking-wider text-payth-muted">
-            Recommendation Confidence
-          </span>
+          <ShieldCheck className="text-payth-blue" size={20} strokeWidth={2} />
+          <LabelText>Recommendation Confidence</LabelText>
         </div>
         <LevelBadge level={result.confidence.level} />
-        <p className="max-w-xl text-slate-600">{result.confidence.reason}</p>
+        <SmallText className="max-w-xl">{result.confidence.reason}</SmallText>
       </div>
 
-      <div className="rounded-2xl border border-payth-border bg-gradient-to-br from-indigo-50 to-blue-50 p-8 text-center">
-        <p className="text-sm font-bold uppercase tracking-wider text-payth-indigo">
-          Quick Assessment Ready
-        </p>
-        <h3 className="mt-2 text-2xl font-black text-payth-navy">
-          Want deeper insights?
-        </h3>
-        <p className="mx-auto mt-3 max-w-lg text-slate-600">
+      <div className="rounded-payth-card border border-payth-border bg-payth-blueSoft/30 p-8 text-center shadow-payth-card">
+        <LabelText className="text-payth-blue">Quick Assessment Ready</LabelText>
+        <CardTitle className="mt-2">Want deeper insights?</CardTitle>
+        <SmallText className="mx-auto mt-3 max-w-lg">
           Answer 3–5 more questions to get specific recommendations.
-        </p>
-        <p className="mx-auto mt-1 max-w-lg text-sm text-payth-muted">
+        </SmallText>
+        <SmallText className="mx-auto mt-1 max-w-lg">
           Answer 4 more questions to uncover cost, conversion, and risk opportunities.
-        </p>
-        <Link
-          href="/assessment/deep"
-          className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-payth-purple to-payth-blue px-8 py-4 font-bold text-white shadow-lg shadow-blue-500/20 transition hover:opacity-95"
-        >
+        </SmallText>
+        <PaythButton href="/assessment/deep" className="mt-6 px-8 py-4">
           Unlock Deeper Insights <ArrowRight size={18} />
-        </Link>
+        </PaythButton>
       </div>
 
       <div className="flex justify-center pt-4">
-        <Link
-          href="/assessment"
-          className="inline-flex items-center gap-2 rounded-xl border border-payth-border bg-white px-6 py-3 font-bold text-payth-navy transition hover:bg-slate-50"
-        >
+        <PaythButton variant="secondary" href="/assessment" className="px-6 py-3">
           <RefreshCw size={18} />
           Retake Assessment
-        </Link>
+        </PaythButton>
       </div>
     </div>
   );
@@ -224,7 +232,7 @@ export default function ResultsDashboard({ result }: ResultsDashboardProps) {
 function ProfileItem({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-xs font-bold uppercase tracking-wide text-payth-muted">{label}</p>
+      <LabelText>{label}</LabelText>
       <p className="mt-1 font-bold text-payth-navy">{value}</p>
     </div>
   );

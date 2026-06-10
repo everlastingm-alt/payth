@@ -3,13 +3,26 @@
 @tailwind utilities;
 
 :root {
-  --payth-purple: #7c3aed;
   --payth-blue: #2563eb;
+  --payth-cyan: #06b6d4;
   --payth-indigo: #4f46e5;
-  --payth-navy: #071235;
+  --payth-navy: #10233f;
+  --payth-ink: #08111f;
   --payth-muted: #64748b;
-  --payth-bg: #f8faff;
-  --payth-border: #e5e7f5;
+  --payth-border: #e2e8f0;
+  --payth-surface: #ffffff;
+  --payth-bg: #f7fafc;
+  --payth-opportunity: #10b981;
+  --payth-opportunity-bg: #d1fae5;
+  --payth-risk: #f59e0b;
+  --payth-risk-bg: #fef3c7;
+  --payth-critical: #ef4444;
+  --payth-critical-bg: #fee2e2;
+  --payth-blue-soft: #dbeafe;
+  --payth-mint-soft: #d1fae5;
+  --payth-amber-soft: #fef3c7;
+  --payth-red-soft: #fee2e2;
+  --payth-purple: #2563eb;
 }
 
 html {
@@ -19,4 +32,45 @@ html {
 body {
   background: var(--payth-bg);
   color: var(--payth-navy);
+}
+
+.payth-gradient-bg {
+  background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+}
+
+.payth-gradient-text {
+  background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes payth-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 0.72;
+  }
+}
+
+@keyframes payth-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.payth-active-dot {
+  animation: payth-pulse 1.4s ease-in-out infinite;
+}
+
+.payth-flow-line {
+  background-size: 200% 100%;
+  animation: payth-flow 2s linear infinite;
 }

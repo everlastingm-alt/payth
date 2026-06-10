@@ -1,4 +1,6 @@
 import type { DeepAssessmentResult } from "@/lib/assessment/deepSchema";
+import { deepResultIcons } from "@/lib/assessment/iconMap";
+import { SmallText } from "@/components/payth/Typography";
 import DynamicCardGrid, { DynamicCardGridItem } from "../DynamicCardGrid";
 import ResultSection from "../ResultSection";
 
@@ -8,10 +10,13 @@ export default function ProviderQuestions({
   data: DeepAssessmentResult["whatToAskProvider"];
 }) {
   return (
-    <ResultSection title={`What To Ask ${data.provider}`}>
-      <p className="mb-4 text-sm text-slate-600">
+    <ResultSection
+      title={`What To Ask ${data.provider}`}
+      icon={deepResultIcons.providerQuestions}
+    >
+      <SmallText className="mb-4">
         Use these questions when contacting your provider.
-      </p>
+      </SmallText>
       <DynamicCardGrid count={data.questions.length}>
         {data.questions.map((item, index) => (
           <DynamicCardGridItem key={item.question}>
@@ -19,10 +24,10 @@ export default function ProviderQuestions({
               <p className="font-bold text-payth-navy">
                 {index + 1}. {item.question}
               </p>
-              <p className="mt-2 text-sm text-slate-600">
-                <span className="font-semibold text-payth-indigo">Why ask: </span>
+              <SmallText className="mt-2">
+                <span className="font-semibold text-payth-blue">Why ask: </span>
                 {item.whyAsk}
-              </p>
+              </SmallText>
             </div>
           </DynamicCardGridItem>
         ))}

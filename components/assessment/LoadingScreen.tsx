@@ -1,13 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2 } from "lucide-react";
+import PathMotif from "@/components/payth/PathMotif";
+import { SectionTitle, SmallText } from "@/components/payth/Typography";
 
 const MESSAGES = [
-  "Analyzing your business...",
-  "Reviewing payment patterns...",
-  "Evaluating growth opportunities...",
-  "Building recommendations...",
+  "Reviewing your payment setup",
+  "Checking payment gaps",
+  "Analyzing key payment metrics",
+  "Building your action playbook",
+  "Preparing provider questions",
+  "Generating recommendations",
 ];
 
 const MIN_DURATION_MS = 3000;
@@ -42,13 +45,11 @@ export default function LoadingScreen({ onComplete, isApiDone }: LoadingScreenPr
 
   return (
     <div className="flex h-full flex-col items-center justify-center text-center">
-      <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-full bg-indigo-50">
-        <Loader2 className="h-8 w-8 animate-spin text-payth-indigo" />
+      <div className="mb-10 flex w-full justify-center px-4">
+        <PathMotif variant="loading" showLabels className="opacity-90" />
       </div>
-      <p className="text-2xl font-black text-payth-navy md:text-3xl">
-        {MESSAGES[messageIndex]}
-      </p>
-      <p className="mt-3 text-payth-muted">This usually takes a few seconds</p>
+      <SectionTitle className="max-w-lg">{MESSAGES[messageIndex]}</SectionTitle>
+      <SmallText className="mt-3">This usually takes a minute</SmallText>
     </div>
   );
 }
